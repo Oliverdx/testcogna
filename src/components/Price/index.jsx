@@ -1,5 +1,5 @@
 const Price = ({value}) => {
-  return <p>{value}</p>
+  return <p>R$ {value}</p>
 };
 
 export default Price;

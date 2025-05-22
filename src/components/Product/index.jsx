@@ -20,20 +20,17 @@ const Product = ({data, withDetails = false}) => {
 
   const handleButtonAction = useCallback((event) => {
     event.preventDefault();
-
-    if(!withDetails)
-      return router.push(`/product/${data.id}`);
-
-    handleAddToCart();
+    router.push(`/product/${data.id}`);
   }, [data.id]);
 
   return <div className="flex flex-col items-center gap-4 p-4">
-        <div className="w-[300px] h-[300px] bg-white rounded-lg flex items-center justify-center">
+        <div className="relative w-[250px] h-[250px] box-border bg-white rounded-lg flex items-center justify-center">
           <Image
             src={data.image}
             loading="lazy"
             alt={`Imagem do produto ${data.title}`}
             fill={true}
+            objectFit="contain"
           />
         </div>
 
@@ -42,24 +39,20 @@ const Product = ({data, withDetails = false}) => {
           <span>{data.rating.count}</span> reviews
         </section>
 
-        <Title as={withDetails ? 'h2' : 'h1'} className="text-center text-lg font-semibold">
-          {data.title}
-        </Title>
+        <div className="flex items-center h-[60px]">
+          <Title as="h2" className="text-lg text-center font-semibold">
+            {data.title}
+          </Title>
+        </div>
 
         <Price value={data.price} />
 
         <Button
           onClick={handleButtonAction}
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+          className="w-full transition"
         >
-          {withDetails ? 'Adicionar ao Carrinho' : 'Ver detalhes'}
+         Ver detalhes
         </Button>
-
-        {withDetails && (
-          <div className="mt-2 text-sm text-zinc-600">
-            <p>{data.description}</p>
-          </div>
-        )}
       </div>
 };
 
