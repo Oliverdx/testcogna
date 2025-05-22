@@ -15,10 +15,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "Cogna test",
-  description: "Cogna teste - Frontend",
-};
 
 export default function RootLayout({ children }) {
   return (

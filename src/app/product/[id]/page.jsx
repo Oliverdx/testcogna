@@ -1,15 +1,40 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
+import Head from 'next/head';
+import Link from 'next/link';
 
 
 import Title from '@/components/Title';
 import Price from '@/components/Price';
-import Button from '@/components/Button';
 import StarRating from '@/components/StarRating';
+import AddToCartButton from '@/components/AddToCartButton';
 
 import { getProductById } from '@/utils/fetchData';
-import Link from 'next/link';
-import AddToCartButton from '@/components/AddToCartButton';
+
+
+export async function generateMetadata({ params }) {
+  const product = await getProductById(params.id);
+
+  return {
+    title: `${product.title} | My Custom Shop`,
+    description: product.description,
+    openGraph: {
+      title: `${product.title} | My Custom Shop`,
+      description: product.description,
+      url: `https://seusite.com/product/${product.id}`,
+      siteName: 'My Custom Shop',
+      images: [
+        {
+          url: product.image,
+          width: 800,
+          height: 600,
+          alt: `Image of ${product.title}`,
+        },
+      ],
+      locale: 'en_US'
+    },
+  };
+}
 
 const ProductPage = async ({ params }) => {
   const { id } = await params;
@@ -18,7 +43,11 @@ const ProductPage = async ({ params }) => {
 
   if (!productData) return notFound();
 
-  return (
+  return (<>
+    <Head>
+      <title>My Custom Shop | {productData.title}</title>
+      <meta property="og:title" content={`My custom Shop - ${productData.title}`} key="title" />
+    </Head>
     <main className="max-w-6xl mx-auto p-6">
 
       <nav aria-label="page navigation">
@@ -62,6 +91,7 @@ const ProductPage = async ({ params }) => {
         </div>
       </div>
     </main>
+  </>
   );
 };
 
