@@ -11,7 +11,7 @@ const Price = loadable(() => import("@/components/Price"));
 const StarRating = loadable(() => import("@/components/StarRating"));
 
 
-const Product = ({data}) => {
+const Product = ({data, isPriority}) => {
   const router = useRouter();
 
   const handleButtonAction = useCallback((event) => {
@@ -23,11 +23,11 @@ const Product = ({data}) => {
         <div className="relative w-[250px] h-[250px] box-border bg-white rounded-lg flex items-center justify-center">
           <Image
             src={data.image}
-            loading="lazy"
             alt={`Imagem do produto ${data.title}`}
             fill={true}
             className="object-contain"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority={isPriority}
           />
         </div>
 
