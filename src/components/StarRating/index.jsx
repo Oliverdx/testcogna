@@ -38,7 +38,7 @@ export default function StarRating ({ rate, count }){
   }
 
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-1" data-testid="star-rating-container">
       {stars}
       {count && <span className="ml-2 text-sm">
         {rate} de {count} avaliações

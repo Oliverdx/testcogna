@@ -3,13 +3,10 @@
 import { useCallback } from "react";
 import { useRouter } from "next/navigation"
 import Image from "next/image";
-import loadable from '@loadable/component'
 
 import Title from "@/components/Title";
-
-const Price = loadable(() => import("@/components/Price"));
-const StarRating = loadable(() => import("@/components/StarRating"));
-
+import Price from "@/components/Price";
+import StarRating from "@/components/StarRating";
 
 const Product = ({data, isPriority}) => {
   const router = useRouter();
@@ -19,7 +16,7 @@ const Product = ({data, isPriority}) => {
     router.push(`/product/${data.id}`);
   }, [data.id]);
 
-  return <div className="flex flex-col items-center gap-4 p-4 cursor-pointer rounded hover:bg-[var(--secondary-color)] transition" onClick={handleButtonAction}>
+  return <div className="flex flex-col items-center gap-4 p-4 cursor-pointer rounded hover:bg-[var(--secondary-color)] transition" data-testid="product-link" onClick={handleButtonAction}>
         <div className="relative w-[250px] h-[250px] box-border bg-white rounded-lg flex items-center justify-center">
           <Image
             src={data.image}
