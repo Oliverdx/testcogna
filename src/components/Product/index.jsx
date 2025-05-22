@@ -7,52 +7,39 @@ import loadable from '@loadable/component'
 
 import Title from "@/components/Title";
 
-const Button = loadable(() => import("@/components/Button"));
 const Price = loadable(() => import("@/components/Price"));
+const StarRating = loadable(() => import("@/components/StarRating"));
 
 
-const Product = ({data, withDetails = false}) => {
+const Product = ({data}) => {
   const router = useRouter();
-
-  const handleAddToCart = useCallback(() => {
-    alert(`Adicionando o Produto ao ${data.title} carrinho`);
-  }, [data.id]);
 
   const handleButtonAction = useCallback((event) => {
     event.preventDefault();
     router.push(`/product/${data.id}`);
   }, [data.id]);
 
-  return <div className="flex flex-col items-center gap-4 p-4">
+  return <div className="flex flex-col items-center gap-4 p-4 cursor-pointer rounded hover:bg-[var(--secondary-color)] transition" onClick={handleButtonAction}>
         <div className="relative w-[250px] h-[250px] box-border bg-white rounded-lg flex items-center justify-center">
           <Image
             src={data.image}
             loading="lazy"
             alt={`Imagem do produto ${data.title}`}
             fill={true}
-            objectFit="contain"
+            className="object-contain"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
 
-        <section className="text-sm text-zinc-500">
-          <span className="font-medium">{data.rating.rate}</span> de{' '}
-          <span>{data.rating.count}</span> reviews
-        </section>
+        <StarRating rate={data.rating.rate} />
 
-        <div className="flex items-center h-[60px]">
-          <Title as="h2" className="text-lg text-center font-semibold">
+        <div className="flex items-center h-[30px]">
+          <Title as="h2" className="w-[200px] text-base text-center font-semibold overflow-hidden text-ellipsis whitespace-nowrap">
             {data.title}
           </Title>
         </div>
 
-        <Price value={data.price} />
-
-        <Button
-          onClick={handleButtonAction}
-          className="w-full transition"
-        >
-         Ver detalhes
-        </Button>
+        <Price className="text-xl" value={data.price} />
       </div>
 };
 
