@@ -31,7 +31,7 @@ const Product = ({data, isPriority}) => {
         <StarRating rate={data.rating.rate} />
 
         <div className="flex items-center h-[30px]">
-          <Title as="h2" className="w-[200px] text-base text-center font-semibold overflow-hidden text-ellipsis whitespace-nowrap">
+          <Title as="h2" className="w-[200px] text-base text-center font-semibold overflow-hidden text-ellipsis whitespace-nowrap" role="heading" aria-level="2">
             {data.title}
           </Title>
         </div>
