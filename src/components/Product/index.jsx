@@ -27,20 +27,21 @@ const Product = ({data, withDetails = false}) => {
   }, [data.id]);
 
   return <div>
+    <Image
+      src={data.image}
+      width={240}
+      height={240}
+      alt={`imagem do produto ${data.title}`}
+    />
     <section>
-      <Title as={withDetails ? "h2" : "h1"}>{data.title}</Title>
-      <Image
-        src={data.image}
-        width={500}
-        height={500}
-        alt={`imagem do produto ${data.title}`}
-      />
       <span>{data.rating.rate} de {data.rating.count} reviews</span>
     </section>
-    {withDetails && <p>{data.description}</p>}
+    <Title as={withDetails ? "h2" : "h1"}>{data.title}</Title>
     <Price value={data.price} />
-    <Button onClick={handleButtonAction}>{withDetails ? 'Ver detalhes' : 'Adicionar ao Carrinho'}</Button>
-  </div>
+    <Button onClick={handleButtonAction}>{withDetails ? 'Adicionar ao Carrinho' : 'Ver detalhes'}</Button>
+
+    {withDetails && <div> <p>{data.description}</p></div>}
+    </div>
 };
 
 export default Product;
